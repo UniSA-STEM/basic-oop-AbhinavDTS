@@ -76,3 +76,14 @@ class Rig:
         self.broken = False
         print(f"[Rig:{self.name}] Repaired successfully.")
         return True
+
+    def upgrade(self, hacker_inventory: List[Asset]) -> bool:
+        # requires a HardwarePatch in hacker inventory
+        patch_index = next((i for i, a in enumerate(hacker_inventory) if a.name == "HardwarePatch"), None)
+        if patch_index is None:
+            print(f"[Rig:{self.name}] Upgrade failed: no HardwarePatch available.")
+            return False
+        hacker_inventory.pop(patch_index)
+        self.upgrade_level += 1
+        print(f"[Rig:{self.name}] Upgraded to level {self.upgrade_level}.")
+        return True
