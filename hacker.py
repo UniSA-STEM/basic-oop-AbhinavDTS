@@ -140,3 +140,8 @@ class Hacker:
                 return True
             print(f"[{self.name}] Asset {asset_name} not found in inventory.")
             return False
+
+        def encrypt_asset_in_rig(self, asset_name: str) -> bool:
+            if not self.rig:
+                print(f"[{self.name}] No rig to encrypt in.")
+                return False
