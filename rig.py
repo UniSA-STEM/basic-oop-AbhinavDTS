@@ -48,3 +48,9 @@ class Rig:
         if self.broken:
             print(f"[Rig:{self.name}] Already broken; further attacks irrelevant.")
             return
+        # increase damage by 1 per hit
+        self.damage += 1
+        print(f"[Rig:{self.name}] Took hit. Damage is now {self.damage}.")
+        if self.damage >= self.break_threshold():
+            self.broken = True
+            print(f"[Rig:{self.name}] Rig is now broken!")
