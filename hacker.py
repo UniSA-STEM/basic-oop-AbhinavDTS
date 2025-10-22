@@ -12,6 +12,7 @@ from asset import Asset, CryptoToken, DataSpike, RemovableDrive, SecurityChip, H
 from rig import Rig
 
 
+
 class Hacker:
     TRACE_THRESHOLD = 5
 
