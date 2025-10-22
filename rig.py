@@ -100,4 +100,17 @@ class Rig:
             asset = SecurityChip()
         else:
             asset = HardwarePatch()
+            # store generated asset if capacity allows; otherwise return it (caller can decide)
+        stored = self.store_asset(asset)
+        if not stored:
+            print(f"[Rig:{self.name}] Generated {asset.name} but storage is full; returning asset.")
+        else:
+            print(f"[Rig:{self.name}] Generated and stored {asset.name}.")
+        return asset
+
+    def scan_storage(self, name: str) -> Asset | None:
+        for a in self.storage:
+            if a.name == name:
+                return a
+        return None
 
