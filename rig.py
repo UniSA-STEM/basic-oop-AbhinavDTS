@@ -87,3 +87,17 @@ class Rig:
         self.upgrade_level += 1
         print(f"[Rig:{self.name}] Upgraded to level {self.upgrade_level}.")
         return True
+
+
+    def generate_asset(self) -> Asset:
+        # generate a random asset (one per call)
+        choice = random.choice(["CryptoToken", "DataSpike", "SecurityChip", "HardwarePatch"])
+        if choice == "CryptoToken":
+            asset = CryptoToken()
+        elif choice == "DataSpike":
+            asset = DataSpike()
+        elif choice == "SecurityChip":
+            asset = SecurityChip()
+        else:
+            asset = HardwarePatch()
+
