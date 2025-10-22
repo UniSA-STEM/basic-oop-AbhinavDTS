@@ -225,6 +225,13 @@ class Hacker:
             if not target_rig.broken:
                 print(f"[{self.name}] Cannot extract: target rig {target_rig.name} is not broken.")
                 return False
+            # need a RemovableDrive in our rig storage or inventory
+            found_drive = None
+            # first check own inventory
+            for i, a in enumerate(self.inventory):
+                if a.name == "RemovableDrive":
+                    found_drive = ("inv", i)
+                    break
 
 
 
