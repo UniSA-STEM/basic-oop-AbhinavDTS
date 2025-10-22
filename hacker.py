@@ -259,6 +259,13 @@ class Hacker:
 
             self.increase_trace(len(extracted_assets))
             return True
+    # The repairing Code
+
+    def repair_my_rig(self) -> bool:
+        if not self.rig:
+            print(f"[{self.name}] No rig to repair.")
+            return False
+        return self.rig.repair(self.inventory)
 
 
 
