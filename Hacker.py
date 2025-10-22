@@ -13,3 +13,11 @@ from typing import List
 from asset import Asset, CryptoToken, DataSpike, RemovableDrive, SecurityChip, HardwarePatch
 from rig import Rig
 
+class Hacker:
+    TRACE_THRESHOLD = 5
+
+    def __init__(self, name: str):
+        self.name = name
+        self.trace = 0
+        self.inventory: List[Asset] = [CryptoToken()]  # starts with one CryptoToken
+        self.rig: Rig | None = None
