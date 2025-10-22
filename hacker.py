@@ -195,5 +195,13 @@ class Hacker:
             # call rig.upgrade which consumes the patch
             return self.rig.upgrade(self.inventory)
 
+        #Battles
+        def launch_data_spike(self, target_rig: Rig) -> bool:
+            # check trace threshold
+            if self.trace > self.TRACE_THRESHOLD:
+                print(f"[{self.name}] Cannot launch attack: trace {self.trace} too high.")
+                return False
+
+
 
 
