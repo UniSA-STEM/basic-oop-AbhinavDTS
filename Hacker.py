@@ -60,3 +60,24 @@ class Hacker:
         self.rig = rig
         print(f"[{self.name}] Acquired rig '{self.rig.name}'. (Consumed {token.name})")
         return True
+
+    # The Trace management
+
+    def increase_trace(self, amount: int = 1):
+        self.trace += amount
+        print(f"[{self.name}] Trace increased by {amount}. Now: {self.trace}")
+        if self.trace > self.TRACE_THRESHOLD:
+            print(
+                f"[{self.name}] WARNING: Trace level {self.trace} exceeds threshold {self.TRACE_THRESHOLD}. Some actions may be blocked.")
+
+    def reduce_trace_with_token(self) -> bool:
+        # consumes a CryptoToken to reduce trace by 3
+        token_index = next((i for i, a in enumerate(self.inventory) if a.name == "CryptoToken"), None)
+        if token_index is None:
+            print(f"[{self.name}] No CryptoToken available to reduce trace.")
+            return False
+        self.inventory.pop(token_index)
+        old = self.trace
+        self.trace = max(0, self.trace - 3)
+        print(f"[{self.name}] Used CryptoToken to reduce trace from {old} to {self.trace}.")
+        return True
