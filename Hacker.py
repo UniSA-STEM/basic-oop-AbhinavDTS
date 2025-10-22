@@ -21,3 +21,23 @@ class Hacker:
         self.trace = 0
         self.inventory: List[Asset] = [CryptoToken()]  # starts with one CryptoToken
         self.rig: Rig | None = None
+
+#Inventory helpers
+    def add_to_inventory(self, asset: Asset):
+        self.inventory.append(asset)
+        print(f"[{self.name}] Added {asset.name} to inventory.")
+
+    def remove_from_inventory(self, asset_name: str) -> Asset | None:
+        for i, a in enumerate(self.inventory):
+            if a.name == asset_name:
+                return self.inventory.pop(i)
+        return None
+
+    def has_asset(self, asset_name: str) -> bool:
+        return any(a.name == asset_name for a in self.inventory)
+
+    def scan_inventory(self, name: str) -> Asset | None:
+        for i, a in enumerate(self.inventory):
+            if a.name == name:
+                return self.inventory.pop(i)  # per spec: "returning and removing it if found"
+        return None
