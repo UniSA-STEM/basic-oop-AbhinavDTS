@@ -10,8 +10,8 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 #Defines the Hacker class with methods for acquiring rigs, attacking, encrypting, extracting, upgrades, storage, etc.
 from __future__ import annotations
 from typing import List
-from asset import Asset, CryptoToken, DataSpike, RemovableDrive, SecurityChip, HardwarePatch
-from rig import Rig
+from Asset import Asset, CryptoToken, DataSpike, RemovableDrive, SecurityChip, HardwarePatch
+from Rig import Rig
 
 class Hacker:
     TRACE_THRESHOLD = 5
