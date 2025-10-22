@@ -21,3 +21,7 @@ class Rig:
         self.upgrade_level = 0
         # start with 2 data spikes and 1 removable drive
         self.storage: List[Asset] = [DataSpike(), DataSpike(), RemovableDrive()]
+
+    def base_storage_capacity(self) -> int:
+
+        return 5 + (3 * self.upgrade_level)
