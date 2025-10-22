@@ -66,3 +66,13 @@ class Rig:
         if token_index is None:
             print(f"[Rig:{self.name}] Repair failed: no CryptoToken available.")
             return False
+        # consume token
+        consumed = hacker_inventory.pop(token_index)
+        print(f"[Rig:{self.name}] Consumed {consumed.name} to repair rig.")
+        if self.damage == 0 and not self.broken:
+            print(f"[Rig:{self.name}] No repair needed.")
+            return True
+        self.damage = 0
+        self.broken = False
+        print(f"[Rig:{self.name}] Repaired successfully.")
+        return True
