@@ -141,7 +141,7 @@ class Hacker:
             print(f"[{self.name}] Asset {asset_name} not found in inventory.")
             return False
 
-        def encrypt_asset_in_rig(self, asset_name: str) -> bool:
+    def encrypt_asset_in_rig(self, asset_name: str) -> bool:
             if not self.rig:
                 print(f"[{self.name}] No rig to encrypt in.")
                 return False
@@ -163,7 +163,7 @@ class Hacker:
             print(f"[{self.name}] Asset {asset_name} not found in rig storage.")
             return False
 
-        def decrypt_asset_in_rig(self, asset_name: str) -> bool:
+    def decrypt_asset_in_rig(self, asset_name: str) -> bool:
                 if not self.rig:
                     print(f"[{self.name}] No rig to decrypt in.")
                     return False
@@ -182,7 +182,7 @@ class Hacker:
                         return True
                 print(f"[{self.name}] Asset {asset_name} not found in rig storage.")
                 return False
-        # Upgrading
+
         def upgrade_rig(self) -> bool:
             if not self.rig:
                 print(f"[{self.name}] Cannot upgrade: no rig.")
@@ -220,6 +220,13 @@ class Hacker:
             self.increase_trace(1)
                     # If target rig became broken, optionally extract unsecured assets (requires removable drive)
             return True
+
+    def extract_from_broken_rig(self, target_rig: Rig) -> bool:
+            if not target_rig.broken:
+                print(f"[{self.name}] Cannot extract: target rig {target_rig.name} is not broken.")
+                return False
+
+
 
 
 
