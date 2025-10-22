@@ -25,3 +25,26 @@ class Rig:
     def base_storage_capacity(self) -> int:
 
         return 5 + (3 * self.upgrade_level)
+
+    def store_asset(self, asset: Asset) -> bool:
+        if len(self.storage) >= self.base_storage_capacity():
+            print(f"[Rig:{self.name}] Storage full. Cannot store {asset.name}.")
+            return False
+        self.storage.append(asset)
+        print(f"[Rig:{self.name}] Stored {asset.name}.")
+        return True
+
+    def release_asset(self, asset_name: str) -> Asset | None:
+        for i, a in enumerate(self.storage):
+            if a.name == asset_name:
+                if a.encrypted:
+                    print(f"[Rig:{self.name}] Cannot release encrypted asset: {a.name}.")
+                    return None
+                return self.storage.pop(i)
+        print(f"[Rig:{self.name}] Asset {asset_name} not found in storage.")
+        return None
+
+    def take_hit(self):
+        if self.broken:
+            print(f"[Rig:{self.name}] Already broken; further attacks irrelevant.")
+            return
