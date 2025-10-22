@@ -108,3 +108,35 @@ class Hacker:
             self.increase_trace(1)
             return True
         return False
+    # The Encryption code needed
+    def encrypt_asset_in_inventory(self, asset_name: str) -> bool:
+        sc = next((a for a in self.inventory if a.name == "SecurityChip"), None)
+        if sc is None:
+            print(f"[{self.name}] Cannot encrypt: no SecurityChip in inventory.")
+            return False
+        for a in self.inventory:
+            if a.name == asset_name:
+                if a.encrypted:
+                    print(f"[{self.name}] Asset {asset_name} already encrypted.")
+                    return False
+                a.encrypt()
+                print(f"[{self.name}] Encrypted {a.name} using SecurityChip.")
+                return True
+        print(f"[{self.name}] Asset {asset_name} not found in inventory.")
+        return False
+
+    def decrypt_asset_in_inventory(self, asset_name: str) -> bool:
+        sc = next((a for a in self.inventory if a.name == "SecurityChip"), None)
+        if sc is None:
+            print(f"[{self.name}] Cannot decrypt: no SecurityChip in inventory.")
+            return False
+        for a in self.inventory:
+            if a.name == asset_name:
+                if not a.encrypted:
+                    print(f"[{self.name}] Asset {asset_name} is not encrypted.")
+                    return False
+                a.decrypt()
+                print(f"[{self.name}] Decrypted {a.name} using SecurityChip.")
+                return True
+            print(f"[{self.name}] Asset {asset_name} not found in inventory.")
+            return False
