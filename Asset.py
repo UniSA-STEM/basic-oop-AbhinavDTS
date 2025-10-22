@@ -35,3 +35,19 @@ class Asset:
         if self.encrypted:
             s += " [Encrypted]"
         return s
+
+    #The code for the Convenience factory functions for core assets
+    def CryptoToken() -> Asset:
+        return Asset("CryptoToken", "Used to acquire or repair rigs.")
+
+    def DataSpike() -> Asset:
+        return Asset("DataSpike", "Used in battles to damage rigs.")
+
+    def RemovableDrive() -> Asset:
+        return Asset("RemovableDrive", "Used to extract unsecured assets from broken rigs.")
+
+    def SecurityChip() -> Asset:
+        return Asset("SecurityChip", "Enables encryption and decryption operations.")
+
+    def HardwarePatch() -> Asset:
+        return Asset("HardwarePatch", "Used to upgrade rigs.")
