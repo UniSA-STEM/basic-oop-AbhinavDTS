@@ -266,6 +266,12 @@ class Hacker:
             print(f"[{self.name}] No rig to repair.")
             return False
         return self.rig.repair(self.inventory)
+    #String
+    def __str__(self) -> str:
+        rig_name = self.rig.name if self.rig else "No Rig"
+        inv_summary = ", ".join([a.name + ("[E]" if a.encrypted else "") for a in self.inventory]) or "Empty"
+        return f"{self.name} - Rig: {rig_name} | Trace: {self.trace} | Inventory: [{inv_summary}]"
+
 
 
 
