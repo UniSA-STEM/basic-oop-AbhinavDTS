@@ -10,8 +10,8 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 #Defines the Hacker class with methods for acquiring rigs, attacking, encrypting, extracting, upgrades, storage, etc.
 from __future__ import annotations
 from typing import List
-from Asset import Asset, CryptoToken, DataSpike, RemovableDrive, SecurityChip, HardwarePatch
-from Rig import Rig
+from asset import Asset, CryptoToken, DataSpike, RemovableDrive, SecurityChip, HardwarePatch
+from rig import Rig
 
 class Hacker:
     TRACE_THRESHOLD = 5
@@ -81,3 +81,31 @@ class Hacker:
         self.trace = max(0, self.trace - 3)
         print(f"[{self.name}] Used CryptoToken to reduce trace from {old} to {self.trace}.")
         return True
+    # Storage transfer
+
+    def store_asset_to_rig(self, asset_name: str) -> bool:
+        if not self.rig:
+            print(f"[{self.name}] No rig to store into.")
+            return False
+        # find asset in inventory
+        for i, a in enumerate(self.inventory):
+            if a.name == asset_name:
+                asset = self.inventory.pop(i)
+                if asset.encrypted:
+                    print(f"[{self.name}] Storing encrypted assets into rig is allowed.")
+                return self.rig.store_asset(asset)
+        print(f"[{self.name}] Asset {asset_name} not found in inventory.")
+        return False
+
+    def retrieve_asset_from_rig(self, asset_name: str) -> bool:
+        if not self.rig:
+            print(f"[{self.name}] No rig to retrieve from.")
+            return False
+        asset = self.rig.release_asset(asset_name)
+        if asset:
+            self.inventory.append(asset)
+            print(f"[{self.name}] Retrieved {asset.name} from rig.")
+            # retrieving sensitive assets increases trace
+            self.increase_trace(1)
+            return True
+        return False
