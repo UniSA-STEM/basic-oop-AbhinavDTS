@@ -232,6 +232,12 @@ class Hacker:
                 if a.name == "RemovableDrive":
                     found_drive = ("inv", i)
                     break
+                    # then check our rig storage
+            if found_drive is None and self.rig:
+                for i, a in enumerate(self.rig.storage):
+                    if a.name == "RemovableDrive":
+                        found_drive = ("rig", i)
+                        break
 
 
 
