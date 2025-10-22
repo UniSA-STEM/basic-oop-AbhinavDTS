@@ -182,5 +182,18 @@ class Hacker:
                         return True
                 print(f"[{self.name}] Asset {asset_name} not found in rig storage.")
                 return False
+        # Upgrading
+        def upgrade_rig(self) -> bool:
+            if not self.rig:
+                print(f"[{self.name}] Cannot upgrade: no rig.")
+                return False
+            # require HardwarePatch in inventory
+            patch_index = next((i for i, a in enumerate(self.inventory) if a.name == "HardwarePatch"), None)
+            if patch_index is None:
+                print(f"[{self.name}] Cannot upgrade rig: no HardwarePatch in inventory.")
+                return False
+            # call rig.upgrade which consumes the patch
+            return self.rig.upgrade(self.inventory)
+
 
 
