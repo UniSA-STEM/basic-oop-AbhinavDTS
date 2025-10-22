@@ -255,6 +255,10 @@ class Hacker:
             # transfer to our inventory
             self.inventory.extend(extracted_assets)
             print(f"[{self.name}] Extracted {len(extracted_assets)} assets from {target_rig.name} to inventory.")
+            # extraction is a risky op: increase trace by number of items extracted
+
+            self.increase_trace(len(extracted_assets))
+            return True
 
 
 
