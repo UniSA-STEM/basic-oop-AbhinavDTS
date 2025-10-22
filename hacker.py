@@ -211,6 +211,15 @@ class Hacker:
             if ds_index is None:
                     print(f"[{self.name}] No DataSpike in rig to launch.")
                     return False
+               # consume DataSpike
+            spike = self.rig.storage.pop(ds_index)
+            print( f"[{self.name}] Launched DataSpike from {self.rig.name} at {target_rig.name} (consumed {spike.name}).")
+                    # apply hit to target rig
+            target_rig.take_hit()
+                    # increase trace
+            self.increase_trace(1)
+                    # If target rig became broken, optionally extract unsecured assets (requires removable drive)
+            return True
 
 
 
