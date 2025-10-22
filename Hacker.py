@@ -41,3 +41,22 @@ class Hacker:
             if a.name == name:
                 return self.inventory.pop(i)  # per spec: "returning and removing it if found"
         return None
+
+    # The rig acquisition
+
+    def acquire_rig(self, rig: Rig | None = None) -> bool:
+        if self.rig is not None:
+            print(f"[{self.name}] Already has a rig: {self.rig.name}.")
+            return False
+        # requires 1 CryptoToken
+        token_index = next((i for i, a in enumerate(self.inventory) if a.name == "CryptoToken"), None)
+        if token_index is None:
+            print(f"[{self.name}] Cannot acquire rig: no CryptoToken.")
+            return False
+        # consume token
+        token = self.inventory.pop(token_index)
+        if rig is None:
+            rig = Rig(f"{self.name}'s Rig")
+        self.rig = rig
+        print(f"[{self.name}] Acquired rig '{self.rig.name}'. (Consumed {token.name})")
+        return True
