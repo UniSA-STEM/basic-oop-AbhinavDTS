@@ -7,10 +7,14 @@ Username: <shaay186>
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
 
-# Defines the Asset base class and several concrete asset factories for convenience.
+"""asset.py
+Defines the Asset base class and several concrete asset factories for convenience.
+"""
 from __future__ import annotations
 from dataclasses import dataclass
 
+
+@dataclass
 class Asset:
     name: str
     description: str
@@ -36,18 +40,19 @@ class Asset:
             s += " [Encrypted]"
         return s
 
-    #The code for the Convenience factory functions for core assets
-    def CryptoToken() -> Asset:
-        return Asset("CryptoToken", "Used to acquire or repair rigs.")
 
-    def DataSpike() -> Asset:
-        return Asset("DataSpike", "Used in battles to damage rigs.")
+# Convenience factory functions for core assets
+def CryptoToken() -> Asset:
+    return Asset("CryptoToken", "Used to acquire or repair rigs.")
 
-    def RemovableDrive() -> Asset:
-        return Asset("RemovableDrive", "Used to extract unsecured assets from broken rigs.")
+def DataSpike() -> Asset:
+    return Asset("DataSpike", "Used in battles to damage rigs.")
 
-    def SecurityChip() -> Asset:
-        return Asset("SecurityChip", "Enables encryption and decryption operations.")
+def RemovableDrive() -> Asset:
+    return Asset("RemovableDrive", "Used to extract unsecured assets from broken rigs.")
 
-    def HardwarePatch() -> Asset:
-        return Asset("HardwarePatch", "Used to upgrade rigs.")
+def SecurityChip() -> Asset:
+    return Asset("SecurityChip", "Enables encryption and decryption operations.")
+
+def HardwarePatch() -> Asset:
+    return Asset("HardwarePatch", "Used to upgrade rigs.")
