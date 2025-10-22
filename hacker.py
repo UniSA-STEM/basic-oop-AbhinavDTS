@@ -86,3 +86,21 @@ class Hacker:
         if not self.rig:
             print(f"[{self.name}] No rig to store into.")
             return False
+        # find asset in inventory
+        for i, a in enumerate(self.inventory):
+            if a.name == asset_name:
+                asset = self.inventory.pop(i)
+                if asset.encrypted:
+                    print(f"[{self.name}] Storing encrypted assets into rig is allowed.")
+                return self.rig.store_asset(asset)
+        print(f"[{self.name}] Asset {asset_name} not found in inventory.")
+        return False
+
+    def retrieve_asset_from_rig(self, asset_name: str) -> bool:
+        if not self.rig:
+            print(f"[{self.name}] No rig to retrieve from.")
+            return False
+        asset = self.rig.release_asset(asset_name)
+        if asset:
+            self.inventory.append(asset)
+            print(f"[{self.name}] Retrieved {asset.name} from rig.")
