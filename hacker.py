@@ -1,5 +1,10 @@
-"""hacker.py
-Defines the Hacker class with methods for acquiring rigs, attacking, encrypting, extracting, upgrades, storage, etc.
+"""
+File: Hacker.py
+Description: <A brief description of this Python module.>
+Author: <Abhinav Sharma>
+ID: <110376072>
+Username: <shaay186>
+This is my own work as defined by the University's Academic Misconduct Policy.
 """
 from __future__ import annotations
 from typing import List
@@ -16,7 +21,7 @@ class Hacker:
         self.inventory: List[Asset] = [CryptoToken()]  # starts with one CryptoToken
         self.rig: Rig | None = None
 
-    # ---------- Inventory helpers ----------
+    # Inventory helpers
     def add_to_inventory(self, asset: Asset):
         self.inventory.append(asset)
         print(f"[{self.name}] Added {asset.name} to inventory.")
@@ -36,7 +41,7 @@ class Hacker:
                 return self.inventory.pop(i)  # per spec: "returning and removing it if found"
         return None
 
-    # ---------- Rig acquisition ----------
+    # Rig acquisition
     def acquire_rig(self, rig: Rig | None = None) -> bool:
         if self.rig is not None:
             print(f"[{self.name}] Already has a rig: {self.rig.name}.")
@@ -54,7 +59,7 @@ class Hacker:
         print(f"[{self.name}] Acquired rig '{self.rig.name}'. (Consumed {token.name})")
         return True
 
-    # ---------- Trace management ----------
+    # Trace management
     def increase_trace(self, amount: int = 1):
         self.trace += amount
         print(f"[{self.name}] Trace increased by {amount}. Now: {self.trace}")
@@ -73,7 +78,7 @@ class Hacker:
         print(f"[{self.name}] Used CryptoToken to reduce trace from {old} to {self.trace}.")
         return True
 
-    # ---------- Storage transfer ----------
+    # Storage transfer
     def store_asset_to_rig(self, asset_name: str) -> bool:
         if not self.rig:
             print(f"[{self.name}] No rig to store into.")
@@ -101,7 +106,7 @@ class Hacker:
             return True
         return False
 
-    # ---------- Encryption / Decryption ----------
+    # Encryption
     def encrypt_asset_in_inventory(self, asset_name: str) -> bool:
         sc = next((a for a in self.inventory if a.name == "SecurityChip"), None)
         if sc is None:
@@ -174,7 +179,7 @@ class Hacker:
         print(f"[{self.name}] Asset {asset_name} not found in rig storage.")
         return False
 
-    # ---------- Upgrade ----------
+    # Upgrade
     def upgrade_rig(self) -> bool:
         if not self.rig:
             print(f"[{self.name}] Cannot upgrade: no rig.")
@@ -187,7 +192,7 @@ class Hacker:
         # call rig.upgrade which consumes the patch
         return self.rig.upgrade(self.inventory)
 
-    # ---------- Battles / Attacks ----------
+    # Battles
     def launch_data_spike(self, target_rig: Rig) -> bool:
         # check trace threshold
         if self.trace > self.TRACE_THRESHOLD:
@@ -213,7 +218,7 @@ class Hacker:
         # If target rig became broken, optionally extract unsecured assets (requires removable drive)
         return True
 
-    # ---------- Extraction ----------
+    # Extraction
     def extract_from_broken_rig(self, target_rig: Rig) -> bool:
         if not target_rig.broken:
             print(f"[{self.name}] Cannot extract: target rig {target_rig.name} is not broken.")
@@ -252,14 +257,14 @@ class Hacker:
         self.increase_trace(len(extracted_assets))
         return True
 
-    # ---------- Repair ----------
+    # Repair
     def repair_my_rig(self) -> bool:
         if not self.rig:
             print(f"[{self.name}] No rig to repair.")
             return False
         return self.rig.repair(self.inventory)
 
-    # ---------- String ----------
+    #String
     def __str__(self) -> str:
         rig_name = self.rig.name if self.rig else "No Rig"
         inv_summary = ", ".join([a.name + ("[E]" if a.encrypted else "") for a in self.inventory]) or "Empty"
