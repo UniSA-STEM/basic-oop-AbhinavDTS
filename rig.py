@@ -114,3 +114,18 @@ class Rig:
                 return a
         return None
 
+    def extract_unencrypted_assets(self) -> List[Asset]:
+        # returns and removes all unencrypted assets from storage
+        extracted = [a for a in self.storage if not a.encrypted and a.name != "RemovableDrive"]
+        # remove extracted assets
+        self.storage = [a for a in self.storage if a.encrypted or a.name == "RemovableDrive"]
+        if extracted:
+            print(f"[Rig:{self.name}] Extracted {len(extracted)} unencrypted assets.")
+        else:
+            print(f"[Rig:{self.name}] No unencrypted assets to extract.")
+        return extracted
+
+    def condition(self) -> str:
+        if self.broken:
+            return f"Broken (Level {self.upgrade_level})"
+
