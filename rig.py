@@ -54,3 +54,15 @@ class Rig:
         if self.damage >= self.break_threshold():
             self.broken = True
             print(f"[Rig:{self.name}] Rig is now broken!")
+
+    def break_threshold(self) -> int:
+        # Level 0: break at damage 2 (per spec)
+        # higher levels tolerate more damage
+        return 2 + self.upgrade_level
+
+    def repair(self, hacker_inventory: List[Asset]) -> bool:
+        # requires a CryptoToken in hacker inventory
+        token_index = next((i for i, a in enumerate(hacker_inventory) if a.name == "CryptoToken"), None)
+        if token_index is None:
+            print(f"[Rig:{self.name}] Repair failed: no CryptoToken available.")
+            return False
