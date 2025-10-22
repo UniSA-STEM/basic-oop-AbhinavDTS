@@ -201,6 +201,16 @@ class Hacker:
             if self.trace > self.TRACE_THRESHOLD:
                 print(f"[{self.name}] Cannot launch attack: trace {self.trace} too high.")
                 return False
+                # need DataSpike in current rig's storage (or inventory?)
+                # per spec: consuming a Data Spike from their rig's storage
+            if not self.rig:
+                    print(f"[{self.name}] No rig to launch attack from.")
+                    return False
+                # find DataSpike in self.rig.storage
+            ds_index = next((i for i, a in enumerate(self.rig.storage) if a.name == "DataSpike"), None)
+            if ds_index is None:
+                    print(f"[{self.name}] No DataSpike in rig to launch.")
+                    return False
 
 
 
