@@ -238,6 +238,23 @@ class Hacker:
                     if a.name == "RemovableDrive":
                         found_drive = ("rig", i)
                         break
+            if found_drive is None:
+                print(f"[{self.name}] No RemovableDrive available to extract.")
+                return False
+
+            if found_drive[0] == "inv":
+                consumed_drive = self.inventory.pop(found_drive[1])
+            else:
+                consumed_drive = self.rig.storage.pop(found_drive[1])
+            print(f"[{self.name}] Consumed {consumed_drive.name} to extract assets from {target_rig.name}.")
+            # extract all unencrypted assets from target_rig
+            extracted_assets = target_rig.extract_unencrypted_assets()
+            if not extracted_assets:
+                print(f"[{self.name}] No unencrypted assets available to extract.")
+                return False
+            # transfer to our inventory
+            self.inventory.extend(extracted_assets)
+            print(f"[{self.name}] Extracted {len(extracted_assets)} assets from {target_rig.name} to inventory.")
 
 
 
