@@ -128,4 +128,17 @@ class Rig:
     def condition(self) -> str:
         if self.broken:
             return f"Broken (Level {self.upgrade_level})"
+        # some status mapping based on damage
+        if self.damage == 0:
+            status = "Pristine"
+        elif self.damage == 1:
+            status = "Wounded"
+        else:
+            status = "Damaged"
+            return f"{status} (Level {self.upgrade_level})"
+
+    def __str__(self) -> str:
+            storage_list = ", ".join([a.name + ("[E]" if a.encrypted else "") for a in self.storage]) or "Empty"
+            return f"{self.name} - Condition: {self.condition()} | Stored ({len(self.storage)}/{self.base_storage_capacity()}): [{storage_list}]"
+
 
