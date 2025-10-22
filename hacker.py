@@ -145,3 +145,10 @@ class Hacker:
             if not self.rig:
                 print(f"[{self.name}] No rig to encrypt in.")
                 return False
+            # SecurityChip may be in inventory or rig storage
+            sc = next((a for a in self.inventory if a.name == "SecurityChip"), None) or self.rig.scan_storage(
+                    "SecurityChip")
+            if sc is None:
+                    print(f"[{self.name}] Cannot encrypt in rig: no SecurityChip available.")
+                    return False
+
