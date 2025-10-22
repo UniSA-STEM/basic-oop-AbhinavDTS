@@ -81,3 +81,8 @@ class Hacker:
         self.trace = max(0, self.trace - 3)
         print(f"[{self.name}] Used CryptoToken to reduce trace from {old} to {self.trace}.")
         return True
+    # Storage transfer
+    def store_asset_to_rig(self, asset_name: str) -> bool:
+        if not self.rig:
+            print(f"[{self.name}] No rig to store into.")
+            return False
