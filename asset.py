@@ -10,7 +10,7 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 """asset.py
 Defines the Asset base class and several concrete asset factories for convenience.
 """
-from __future__ import annotations
+
 from dataclasses import dataclass
 
 
