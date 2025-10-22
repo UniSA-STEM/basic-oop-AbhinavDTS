@@ -104,3 +104,7 @@ class Hacker:
         if asset:
             self.inventory.append(asset)
             print(f"[{self.name}] Retrieved {asset.name} from rig.")
+            # retrieving sensitive assets increases trace
+            self.increase_trace(1)
+            return True
+        return False
