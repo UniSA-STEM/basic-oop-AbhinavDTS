@@ -145,10 +145,42 @@ class Hacker:
             if not self.rig:
                 print(f"[{self.name}] No rig to encrypt in.")
                 return False
-            # SecurityChip may be in inventory or rig storage
+                # SecurityChip may be in inventory or rig storage
             sc = next((a for a in self.inventory if a.name == "SecurityChip"), None) or self.rig.scan_storage(
                     "SecurityChip")
             if sc is None:
                     print(f"[{self.name}] Cannot encrypt in rig: no SecurityChip available.")
                     return False
+                    # find asset in rig storage
+            for a in self.rig.storage:
+                if a.name == asset_name:
+                    if a.encrypted:
+                        print(f"[{self.name}] Rig asset {asset_name} already encrypted.")
+                        return False
+                    a.encrypt()
+                    print(f"[{self.name}] Encrypted {a.name} in rig using SecurityChip.")
+                    return True
+            print(f"[{self.name}] Asset {asset_name} not found in rig storage.")
+            return False
+
+        def decrypt_asset_in_rig(self, asset_name: str) -> bool:
+                if not self.rig:
+                    print(f"[{self.name}] No rig to decrypt in.")
+                    return False
+                sc = next((a for a in self.inventory if a.name == "SecurityChip"), None) or self.rig.scan_storage(
+                    "SecurityChip")
+                if sc is None:
+                    print(f"[{self.name}] Cannot decrypt in rig: no SecurityChip available.")
+                    return False
+                for a in self.rig.storage:
+                    if a.name == asset_name:
+                        if not a.encrypted:
+                            print(f"[{self.name}] Rig asset {asset_name} is not encrypted.")
+                            return False
+                        a.decrypt()
+                        print(f"[{self.name}] Decrypted {a.name} in rig using SecurityChip.")
+                        return True
+                print(f"[{self.name}] Asset {asset_name} not found in rig storage.")
+                return False
+
 
